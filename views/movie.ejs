@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= name %> </title>
+  <!-- <link href="movie.css" rel="stylesheet" /> -->
+  <link href="./movie.css"  rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <img src="./banner.png" alt="Rancid Tomatoes" class="banner-image"/>
+    </header>
+  <h1><%= name %> (<%= year %>)</h1>
+  
+  <!-- <img src="../tmnt/placard.png" alt="<%= name %>"> -->
+  <img src="./tmnt/placard.png" alt="<%= name %>">
+  
+  <p><strong>Rating:</strong> <%= rating %>% <%= freshCount %> fresh <%= reviews.length - freshCount %> rotten</p>
+  
+  <h2>Cast</h2>
+  <div class="page-content">
+    <div class="movie-summary">
+        <dl>
+            <% for (var i = 0; i < cast.length; i++) { %>
+            <dt> <%= cast[i].description %></dt><dl> <%= cast[i].title %>  </dl>
+            <% } %>
+        </dl>
+    </div>
+    <!-- <div class="comments-wrapper">
+        <h2>Reviews</h2>
+        <div class="comments-header">
+            <img class="tomato-fresh" src="freshbig.png" alt="Fresh"  />
+            <span class="fresh-persent">91%</span>					
+        </div>
+        <% if (reviews.length === 0) { %>
+            <p>No reviews yet!</p>
+        <% } else { %>
+            <ul>
+            <% for (var i = 0; i < reviews.length; i++) { %>
+                <li>
+                <p><%= reviews[i].text %></p>
+                <p><strong><%= reviews[i].rating %></strong></p>
+                <p>By <%= reviews[i].reviewer %>, <%= reviews[i].publication %></p>
+                <img src="/<%= reviews[i].image %>" alt="<%= reviews[i].rating %>">
+                </li>
+            <% } %>
+            </ul>
+        <% } %>
+    </div>				 -->
+    <section>
+        <div class="comments-area">
+            <div class="left-side" >
+                <% reviewsLeft.forEach(function(review) { %>
+                    <div class="comment">
+                        <img src="/<%= movieTitle %>/gif.<%= review.rating %>.gif" alt="<%= review.rating %>">
+                        <p><%= review.text %></p>
+                        <p class="commented-user"><%= review.reviewer %></p>
+                        <p class="publication"><%= review.publication %></p>
+                    </div>
+                <% }); %>
+            </div>
+            <div class="right">
+                <% reviewsRight.forEach(function(review) { %>
+                    <div class="comment">
+                        <img src="/<%= movieTitle %>/gif.<%= review.rating %>.gif" alt="<%= review.rating %>">
+                        <p><%= review.text %></p>
+                        <p class="commented-user"><%= review.reviewer %></p>
+                        <p class="publication"><%= review.publication %></p>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+        <div class="green-stripe">
+            <p><%= reviewsLeft.length + reviewsRight.length %> of <%= reviews.length - 1 %></p>
+        </div>
+    </section>
+								
+    </div>	    
+
+
+</body>
+</html>
