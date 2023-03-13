@@ -57,6 +57,7 @@ dt{
     /* min-height: 100%; */
     background-color: #5d8b3e ;
     border-radius: 40px 40px 0 0 ;
+    border: "1px spolid red" ;
 }
 /* ------------------------------------------------ */
 .comment{
@@ -68,10 +69,10 @@ dt{
     font-weight: bold;
     background-color: #e3daa3;   
 }
-.critic-icon{
+/* .critic-icon{
     float:left;
     margin-right: 5px;
-}
+} */
 .commented-user{
     font-style: italic;
     margin: 5%;
@@ -98,12 +99,14 @@ dt{
     background-color: #5d8b3e;
     border-radius:  0 37px 0 0 ;
     color : #f1f1e4da;
+    max-width: 40vh;
 }
 
 .comments-area{
     display: flex;
     flex-direction: row;
     height: 94.5%;
+    min-width: 80vh;
     background-image: url('background.png');
 }
 
@@ -137,7 +140,7 @@ dt{
      }
     .comments-wrapper{
         display: flex;
-        flex-direction: column;
+        flex-direction: column;        
     }
     .tomato-fresh{
         border-radius: initial;

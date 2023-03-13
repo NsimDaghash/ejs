@@ -7,19 +7,30 @@ const path = require("path");
 const app = express();
 const port = 3008;
 
+app.use(express.static(__dirname + "/views"));
+
 // 3. Set up a route to handle requests for the movie page
 
 app.get("/", (req, res) => {
   // 4. Retrieve the title parameter from the query string
   let movieTitle = "tmnt2";
-  let infoPath = path.join(__dirname, "views", movieTitle, "information.txt");
-  let castPath = path.join(__dirname, "views", movieTitle, "cast.txt");
+  let infoPath = path.join("./views", movieTitle, "information.txt");
+  let castPath = path.join("./views", movieTitle, "cast.txt");
+  let cssPath = path.join("./views/movie.css");
   // 5. Read the necessary information and review files for the specified movie
   const movieFolder = movieTitle;
   const informationFile = fs.readFileSync(infoPath, "utf8").split("\n");
   const castFile = fs.readFileSync(castPath, "utf8").split("\n");
+  // let castFile = movieFolder + title + "/cast.txt";
+  // let castLines = fs.readFileSync(castFile, "utf-8").split("\n");
+  let cast = [];
+  for (let i = 0; i < castFile.length; i++) {
+    let castInfo = castFile[i].split("#");
+    cast.push({ description: castInfo[0], title: castInfo[1] });
+  }
+
   // Read the reviews for the movie
-  let reviewsPath = path.join(__dirname, "views", movieTitle);
+  let reviewsPath = path.join("./views", movieTitle);
   let reviewFiles = fs.readdirSync(reviewsPath);
   let reviews = [],
     reviewsLeft = [],
@@ -59,11 +70,11 @@ app.get("/", (req, res) => {
       }
     }
   }
-  console.log(reviewsLeft);
-  console.log("reviewsRight", reviewsRight);
+
   // 6. Render an EJS template with the movie information and reviews
   res.render("movie.ejs", {
     title: "Tomatoes Rancid",
+    cssPath,
     movieTitle,
     freshCount,
     reviewsLeft,
@@ -71,7 +82,7 @@ app.get("/", (req, res) => {
     rating: informationFile[0],
     year: informationFile[1],
     name: informationFile[2],
-    cast: castFile.map((line) => line.split(":")),
+    cast: castFile.map((line) => line.split("#")),
     reviews: reviews.map((review) => ({
       text: review[0],
       rating: review[1],
