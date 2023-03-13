@@ -8,15 +8,20 @@ const app = express();
 const port = 3008;
 
 app.use(express.static(__dirname + "/views"));
+app.set("views", "./views");
+app.set("view engine", "ejs");
 
 // 3. Set up a route to handle requests for the movie page
 
-app.get("/", (req, res) => {
+app.get("", (req, res) => {
   // 4. Retrieve the title parameter from the query string
-  let movieTitle = "tmnt2";
+  //   let movieURL = req.query.title; req.url
+  let movieURL = req.query.title ? req.query.title : "tmnt";
+  let movieTitle = movieURL ? movieURL : "tmnt";
   let infoPath = path.join("./views", movieTitle, "information.txt");
   let castPath = path.join("./views", movieTitle, "cast.txt");
   let cssPath = path.join("./views/movie.css");
+
   // 5. Read the necessary information and review files for the specified movie
   const movieFolder = movieTitle;
   const informationFile = fs.readFileSync(infoPath, "utf8").split("\n");
@@ -26,6 +31,7 @@ app.get("/", (req, res) => {
   let cast = [];
   for (let i = 0; i < castFile.length; i++) {
     let castInfo = castFile[i].split("#");
+    castInfo[0] = castInfo[0].split(",");
     cast.push({ description: castInfo[0], title: castInfo[1] });
   }
 
@@ -49,10 +55,10 @@ app.get("/", (req, res) => {
         image: reviewData[1] === "FRESH" ? "fresh.gif" : "rotten.gif",
       };
       reviews.push(review);
-      //if (review.rating === "FRESH") freshCount++;
       freshCount++;
     }
   });
+  // divide the reviews to two columns
   if (freshCount % 2 === 0) {
     for (let i = 0; i < freshCount; i++) {
       if (i < freshCount / 2) {

@@ -14,7 +14,7 @@
     <div class="page-content">
         <div class="movie-summary">
             <div>
-                <img src="./tmnt2/placard.png" alt="<%= name %>" class="movie-image">
+                <img src="./tmnt/placard.png" alt="<%= name %>" class="movie-image">
             </div>
             <dl>
                 <% for (let i = 0; i < cast.length; i++) { %>
@@ -26,11 +26,11 @@
         <div class="comments-wrapper">
             <!-- comments area header  -->				            
             <div class="comments-header">
-                <img src="<%= rating >= 60 ? 'fresh.gif' : 'rotten.gif' %>" alt="rating" />
+                <img src="<%= rating >= 60 ? 'freshbig.png' : 'rottenbig.png' %>" alt="rating" class="tomato-fresh"/>
                 <span class="fresh-persent"><%= rating %>%</span>					
             </div>
 
-            <!--  comments arae  -->
+                <!--  comments arae  -->
             <div class="comments-area">
                 <div class="left-side" >
                     <% reviewsLeft.forEach(function(review) { %>
@@ -39,25 +39,33 @@
                             <img src="<%= review.rating === 'FRESH' ? 'fresh.gif' : 'rotten.gif' %>" alt="<%= review.rating %>" class="critic-icon" />
                             <p><%= review.text %></p>
                         </div>
-                        <p class="commented-user">
-                            <img src="critic.gif" alt="Critic" class="critic-icon"/>
-                            <p><%= review.reviewer %></p>
-                            <p class="publication"><%= review.publication %></p>
-                        </p>
+                        <div class="commented-user">
+                            <div>
+                                <img src="critic.gif" alt="Critic" class="reviewer-icon"/>
+                            </div>
+                            <div>
+                                <p><%= review.reviewer %></p>
+                                <p><%= review.publication %></p>
+                            </div>
+                        </div>
                     <% }); %>
                 </div>
                 <div class="right">
-                    <% reviewsLeft.forEach(function(review) { %>
+                    <% reviewsRight.forEach(function(review) { %>
                         <div class="comment">
                             <!-- <img src="/<%= movieTitle %>/gif.<%= review.rating %>.gif" alt="<%= review.rating %>" class="critic-icon" /> -->
                             <img src="<%= review.rating === 'FRESH' ? 'fresh.gif' : 'rotten.gif' %>" alt="<%= review.rating %>" class="critic-icon" />
                             <p><%= review.text %></p>
                         </div>
-                        <p class="commented-user">
-                            <img src="critic.gif" alt="Critic" class="critic-icon"/>
-                            <p><%= review.reviewer %></p>
-                            <p class="publication"><%= review.publication %></p>
-                        </p>
+                        <div class="commented-user">
+                            <div>
+                                <img src="critic.gif" alt="Critic" class="reviewer-icon"/>
+                            </div>
+                            <div>
+                                <p><%= review.reviewer %></p>
+                                <p><%= review.publication %></p>
+                            </div>
+                        </div>
                     <% }); %>
                 </div>
             </div>	

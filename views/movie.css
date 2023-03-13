@@ -68,14 +68,23 @@ dt{
     font-size: 1rem;
     font-weight: bold;
     background-color: #e3daa3;   
+    /* display: flex;
+    flex-direction: row; */
 }
-/* .critic-icon{
+.critic-icon{
     float:left;
     margin-right: 5px;
-} */
+}
+.reviewer-icon{
+    margin-top: 3vh;
+}
+
 .commented-user{
     font-style: italic;
     margin: 5%;
+    display: flex;
+    flex-direction: row;
+    border:"1px solid red";
 }
 .comments-header{
     background-image: url('rbg.png');
@@ -114,33 +123,35 @@ dt{
     margin-left: 50px;
 }
 
-.movie-image{
-    border-radius:  0 37px 0 0 ; 
-}
 .comment-header{
     height: 83px;
     /* background-image: url('./'); */
 }
+
 .movie-image{
+    border-radius:  0 37px 0 0 ; 
     width: 100%;
 }
-
 /* ---------------- */ 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1000px) {
     .page-content{
       display: flex;
       flex-direction: column;
-      width: 90%;
       margin-left: auto;
       margin-right: auto;
+      width:90vw;
     }
     .banner-image{
         max-width: 100%;
      }
     .comments-wrapper{
         display: flex;
-        flex-direction: column;        
+        flex-direction: column; 
+     
+    }
+    .comment{
+       max-width: 80vw;  
     }
     .tomato-fresh{
         border-radius: initial;
@@ -148,9 +159,15 @@ dt{
     }
     .movie-image{
         border-radius:  37px 37px 0 0 ; 
+        background-size: cover;
+        background-repeat: no-repeat;
+        object-fit: fill;
+        width: 90vw;
     }
     .movie-summary{
         border-radius:  37px 37px 0 0 ;
+        /* width: fit-content; */
+        width: 90vw;
     }
     .comments-area{
         display: flex;
