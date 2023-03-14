@@ -14,7 +14,7 @@
     <div class="page-content">
         <div class="movie-summary">
             <div>
-                <img src="./tmnt/placard.png" alt="<%= name %>" class="movie-image">
+                <img src="<%=imagePath%>" alt="<%= name %>" class="movie-image">
             </div>
             <dl>
                 <% for (let i = 0; i < cast.length; i++) { %>
@@ -40,13 +40,13 @@
                             <p><%= review.text %></p>
                         </div>
                         <div class="commented-user">
-                            <div>
+                            <p>
                                 <img src="critic.gif" alt="Critic" class="reviewer-icon"/>
-                            </div>
-                            <div>
-                                <p><%= review.reviewer %></p>
-                                <p><%= review.publication %></p>
-                            </div>
+                            </p>
+                            <p>
+                                <%= review.reviewer %><br />
+                                <%= review.publication %>
+                            </p>
                         </div>
                     <% }); %>
                 </div>
@@ -58,13 +58,13 @@
                             <p><%= review.text %></p>
                         </div>
                         <div class="commented-user">
-                            <div>
+                            <p>
                                 <img src="critic.gif" alt="Critic" class="reviewer-icon"/>
-                            </div>
-                            <div>
-                                <p><%= review.reviewer %></p>
-                                <p><%= review.publication %></p>
-                            </div>
+                            </p>
+                            <p>
+                                <%= review.reviewer %><br />
+                                <%= review.publication %>
+                            </p>
                         </div>
                     <% }); %>
                 </div>
@@ -73,6 +73,6 @@
     </div>	
             
     </div>	
-    <footer class="footer"> <p><%= reviewsLeft.length + reviewsRight.length %> of <%= reviews.length %></p></footer>
+    <footer class="footer"> <p class="footer-text"><%= reviewsLeft.length + reviewsRight.length %> of <%= reviews.length %></p></footer>
 </body>
 </html>

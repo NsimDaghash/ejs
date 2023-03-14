@@ -2,32 +2,41 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const url = require("url");
+const querystring = require("querystring");
 
 // 2. Create an instance of the express application
 const app = express();
-const port = 3008;
+const port = 3001;
 
 app.use(express.static(__dirname + "/views"));
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
+// Sample URL with a query parameter
+const urlString = __dirname;
+
+// Parse the URL and extract the query parameter
+const parsedUrl = url.parse(urlString);
+const queryParams = querystring.parse(parsedUrl.query);
+const title = queryParams.title;
 // 3. Set up a route to handle requests for the movie page
 
 app.get("", (req, res) => {
   // 4. Retrieve the title parameter from the query string
-  //   let movieURL = req.query.title; req.url
+
   let movieURL = req.query.title ? req.query.title : "tmnt";
   let movieTitle = movieURL ? movieURL : "tmnt";
   let infoPath = path.join("./views", movieTitle, "information.txt");
   let castPath = path.join("./views", movieTitle, "cast.txt");
+  let imagePath = path.join(movieTitle, "placard.png");
   let cssPath = path.join("./views/movie.css");
 
   // 5. Read the necessary information and review files for the specified movie
   const movieFolder = movieTitle;
   const informationFile = fs.readFileSync(infoPath, "utf8").split("\n");
   const castFile = fs.readFileSync(castPath, "utf8").split("\n");
-  // let castFile = movieFolder + title + "/cast.txt";
-  // let castLines = fs.readFileSync(castFile, "utf-8").split("\n");
+
   let cast = [];
   for (let i = 0; i < castFile.length; i++) {
     let castInfo = castFile[i].split("#");
@@ -35,7 +44,7 @@ app.get("", (req, res) => {
     cast.push({ description: castInfo[0], title: castInfo[1] });
   }
 
-  // Read the reviews for the movie
+  // 5.1 Read the reviews for the movie
   let reviewsPath = path.join("./views", movieTitle);
   let reviewFiles = fs.readdirSync(reviewsPath);
   let reviews = [],
@@ -58,7 +67,7 @@ app.get("", (req, res) => {
       freshCount++;
     }
   });
-  // divide the reviews to two columns
+  //5.2 split the reviews to two columns
   if (freshCount % 2 === 0) {
     for (let i = 0; i < freshCount; i++) {
       if (i < freshCount / 2) {
@@ -81,6 +90,7 @@ app.get("", (req, res) => {
   res.render("movie.ejs", {
     title: "Tomatoes Rancid",
     cssPath,
+    imagePath,
     movieTitle,
     freshCount,
     reviewsLeft,
